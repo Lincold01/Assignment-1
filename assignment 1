@@ -93,7 +93,7 @@ int main(void)
 
 void sigint_handler(int sig)
 {
-        printf( ("\nPLease enter with an appropiate data! Press enter to continue\n");
+        printf( ("\nPLease enter with an appropiate data!\n");
 }
 
 void sigtstp_handler (int sig)
