@@ -3,112 +3,100 @@
 #include <errno.h>
 #include <signal.h>
 #include <sys/types.h>
-#include <sys/wait.h>
-#include <unistd.h>
+#include <sys/wait.h> #include <unistd.h>
 #include <string.h>
 
 int main(void)
 {
         void sigint_handler(int sig);
         void sigtstp_handler(int sig);
-        void sigquit_handler(int sig);
-        int anak;
-        int pipefds[2];
-        char buffer[50];
+        int child; int pipefds [2];
+        char buffer [50];
         char s[50];
-
-        // Signal Handler
-        if (signal(SIGINT, sigint_handler) == SIG_ERR){
+        
+        
+        if (signal(SIGINT, sigint_handler) == SIG_ERR)
+        {
                 perror("signal SIGINT");
                 exit(1);
         }
-        else if (signal(SIGTSTP, sigtstp_handler) == SIG_ERR){
+
+        else if (signal(SIGTSTP, sigtstp_handler) == SIG ERR)
+        {
                 perror("signal SIGTSTP");
                 exit(1);
         }
-        else if (signal(SIGQUIT, sigquit_handler) == SIG_ERR){
-                perror("signal SIGQUIT");
-                exit(1);
-        }
-
-
-        // Pipe Check
-        if(pipe(pipefds) == -1){
-                perror("Pipe Error!!!");
+        
+        
+        if (pipe(pipefds) == -1)
+        {
+                perror("Pipe error!"); 
                 exit(EXIT_FAILURE);
         }
-
-
-        // Parent Input Message
-        printf("Enter a message for parent process:");
-
-        // Parent Input Check
-        if (fgets(s, sizeof(s), stdin) == NULL){
-                perror("Parent input error!!!");
-        }
-        else {
-                s[strcspn(s, "\n")] = '\0';
-                printf("You entered: %s\n\n", s);
-        }
-
-
-        // How Many Looping Input
-        printf("Enter how many child you want? : ");
-        scanf("%d", &anak);
         
-        // How Many Looping Input Check
-        if (anak < 1){
-                perror("Looping input error!!!");
+        printf("\nEnter your name <3: ");
+        
+        
+        if (fgets(s, sizeof(s), stdin) == NULL);
+        {
+                perror("Put your nameeee please");
         }
-        else {
-                printf("You entered: %d\n\n", anak);
+
+        else
+        {
+                s[strcspn (s, "\n")] = '\0'; 
+                printf("Hi %s!!. How are you?\n\n",s);
         }
 
+        printf("How many love do you want today?: "); 
+        scanf("%d", &child);
 
-        // Pipe Write
-        printf("Passing message to child...\n");
-        write(pipefds[1], &s, sizeof(s));
-        printf("Done.\n\n");
-
-        // Pipe Read
-        printf("Child receiving message from parent...\n");
-        read(pipefds[0], &buffer, sizeof(buffer));
-        printf("Done.\n\n");
-
-
-        // Fork Looping
-        for(int i = 0; i <("%d", anak) ; i++) {
+        if (child 1)
+        {
+                perror("Put a number after 0 sweetheart");
+        }
+        else
+        {
+                printf ("%d will coming right up!\n\n", child);
+        }
+        
+        
+         printf ("Creating and Passing %d quote to our robot \n", child);
+         write (pipefds [1], &s, sizeof (s));
+         printf ("Done. \n\n");
+         
+         
+        read (pipefds [0], &buffer, sizeof (buffer));
+        printf ("And done!!\n");
+        
+        
+        for(int i = 0; i <("&d", child) ; i++)
+        {
                 pid_t pid = fork();
-
-
-                if(pid == 0) {
-                        printf("This child receive '%s' from parent\n", buffer);
+                
+                if (pid == 0)
+                {
+                        printf ("\nHave a good day %S!! Keep smiling because you got such a beautiful smile. \nI Love You from bottom of my Heart <3. \n\n", buffer);
                         exit(0);
                 }
-                else {
-                        printf("Waiting for child processes to finish...\n");
-                        wait(NULL);
+                
+                else
+                {
+                        printf ("\nwaiting for our robot to display the Quote Of The Day\n");
+                        wait (NULL);
                         close(pipefds[1]);
-                        close(pipefds[0]);
-                        printf("child process finished.\n\n");
+                        close (pipefds [0]);
                 }
+        
         }
 }
 
-// Ctrl+C Signal Handler Message
 void sigint_handler(int sig)
 {
-        printf("Ctrl + C Captured \n");
+        printf( ("\nPLease enter with an appropiate data! Press enter to continue\n");
 }
 
-// Ctrl+Z Signal Handler Message
-void sigtstp_handler(int sig)
+void sigtstp_handler (int sig)
 {
-        printf("Ctrl + Z Captured \n");
-}
-
-// Ctrl+Backspace Signal Handler Message
-void sigquit_handler(int sig)
-{
-        printf("Ctrl + Backspace Captured \n");
+        printf ("\nDont leave ;; Press enter to continue\n");
 }
